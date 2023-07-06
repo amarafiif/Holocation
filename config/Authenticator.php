@@ -13,16 +13,19 @@ if ($check > 0) {
 
     $data = mysqli_fetch_assoc($login);
 
+    $_SESSION['id'] = $data['id'];
+    $_SESSION['username'] = $username;
+    $_SESSION['name'] = $data['name'];
+    $_SESSION['email'] = $data['email'];
+
     if ($data['role'] == 'admin') {
-        $_SESSION['username'] = $username;
         $_SESSION['role'] = 'admin';
 
         header("location:/views/admin/index.php");
     } else if ($data['role'] == 'user') {
-        $_SESSION['username'] = $username;
         $_SESSION['role'] = 'user';
 
-        header("location:user/index.php");
+        header("location:/views/user/index.php");
     } else {
         header("location:index.php?pesan=gagal");
     }
