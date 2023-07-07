@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <title>Dashboard - Destinations</title>
+    <title>Holocation - Detail</title>
 </head>
 <style>
     body {
@@ -23,6 +23,7 @@
     $name = $_SESSION['name'];
     $email = $_SESSION['email'];
 
+
     $current_page = $_SERVER['REQUEST_URI'];
 
     if ($_SESSION['role'] != "admin") {
@@ -30,7 +31,8 @@
     }
     ?>
 
-    <div class="antialiased bg-indigo-100">
+
+    <div class="antialiased bg-slate-100">
         <!-- Navbar -->
         <nav class="bg-slate-100 shadow-md border-gray-200 px-4 py-5 fixed left-0 right-0 top-0 z-50">
             <div class="flex flex-wrap justify-between items-center">
@@ -131,41 +133,73 @@
         </aside>
 
         <!-- Main Content -->
-        <main class="p-4 md:ml-64 min-h-screen pt-24">
-            <h1 class="text-2xl font-bold text-gray-800 mb-4 mt-3">
-                Add Destination
+        <main class="p-4 md:ml-64 h-auto pt-24">
+            <h1 class="text-2xl text-gray-800 font-bold mb-4 mt-3">
+                Detail Article
             </h1>
-            <div class="pt-5 bg-white mb-4">
-                <div class="p-6 space-y-6">
-                    <form action="./createActionDestination.php" method="POST" enctype="multipart/form-data">
-                        <div class="grid gap-6 mb-6 md:grid-cols-2">
-                            <div>
-                                <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Name</label>
-                                <input type="text" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Destination name" required>
+
+            <?php
+
+            include('../../../config/databaseConnection.php');
+            $id = $_GET['id'];
+            $sql = mysqli_query($connect, "SELECT * FROM article WHERE id = $id");
+            $row = mysqli_fetch_array($sql);
+            ?>
+
+            <div class="pt-5 bg-white min-h-screen mb-4">
+                <div class="preview p-6">
+                    <div class="flex justify-between">
+                        <span class="text-center text-gray-800 font-semibold">Preview content</span>
+                        <a href="updateDestinationForm.php?id=<?php echo $row['id']; ?>" class="px-3 py-2 rounded-sm text-gray-50 bg-indigo-500 hover:bg-indigo-600">Edit Article</a>
+                    </div>
+                    <hr class="mt-3 mb-5">
+                    <div class="">
+                        <h1 class="text-4xl text-gray-800 font-extrabold"><?php echo $row['title'] ?></h1>
+                        <small class="flex gap-3 italic py-2 text-sm text-gray-400 rounded-md">
+                            <?php echo $row['created_at'] ?></small>
+                    </div>
+                    <img class="flex my-5 min-w-full" src="./image/<?php echo $row['image'] ?>" alt="thumbnail" />
+                    <span class="mt-4">
+                        <?php echo $row['content']; ?>
+                    </span>
+                    <section class="">
+                        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+                            <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
+                                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 ">More Articles</h2>
+                                <p class="mb-5 font-light text-gray-500 sm:text-xl">Get information and tips when you travel</p>
                             </div>
-                            <div>
-                                <label for="location" class="block mb-2 text-sm font-medium text-gray-900">Location</label>
-                                <input type="text" name="location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Location destination" required>
-                            </div>
-                        </div>
-                        <div class="mb-6">
-                            <label for="price" class="block mb-2 text-sm font-medium text-gray-900">Entrace ticket</label>
-                            <input type="text" name="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Entrace ticket pricing" required>
-                        </div>
-                        <div class="mb-6">
-                            <label for="complete_address" class="block mb-2 text-sm font-medium text-gray-900">Complete address</label>
-                            <input type="text" name="complete_address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Location destination" required>
-                        </div>
-                        <div class="mb-6">
-                            <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Description</label>
-                            <textarea id="description" rows="4" name="description" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
-                        </div>
-                        <div class="mb-6">
-                            <label for="image" class="block mb-2 text-sm font-medium text-gray-900">Image</label>
-                            <input name="image" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" id="file_input" type="file">
-                        </div>
-                        <button type="submit" class="text-white bg-indigo-500 hover:bg-indigo-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add Now!</button>
-                    </form>
+
+                            <?php
+                            include('../../../config/databaseConnection.php');
+                            $sql = mysqli_query($connect, "SELECT * FROM article ORDER BY id ASC");
+                            $no = 1;
+                            while ($row = mysqli_fetch_array($sql)) {
+                                $id = $row['id'];
+                                $title = $row['title'];
+                                $content = $row['content'];
+                                $created_at = $row['created_at'];
+
+                            ?>
+                                <div class="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
+                                    <div class="flex flex-col mx-auto max-w-lg text-gray-900 bg-white rounded-lg border border-gray-100 shadow">
+                                        <div class="rounded overflow-hidden shadow">
+                                            <img class="w-full" src="./image/<?= $row['image']?>" alt="Thumbnail-article">
+                                            <div class="px-6 py-4">
+                                                <div class="flex justify-between">
+                                                    <h2 class="font-bold text-xl mb-2"><?= $row['title'] ?></h2>
+                                                    <a class="font-semibold text-xl mb-2 bg-blue-500 hover:bg-blue-700 text-white py-1 px-3 rounded">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php
+                            }
+                                ?>
+                    </section>
                 </div>
             </div>
         </main>

@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <title>Dashboard - Destinations</title>
+    <title>Dashboard - Articles</title>
 </head>
 <style>
     body {
@@ -23,12 +23,14 @@
     $name = $_SESSION['name'];
     $email = $_SESSION['email'];
 
+
     $current_page = $_SERVER['REQUEST_URI'];
 
     if ($_SESSION['role'] != "admin") {
         header("location:index.php?pesan=gagal");
     }
     ?>
+
 
     <div class="antialiased bg-indigo-100">
         <!-- Navbar -->
@@ -132,40 +134,60 @@
 
         <!-- Main Content -->
         <main class="p-4 md:ml-64 min-h-screen pt-24">
-            <h1 class="text-2xl font-bold text-gray-800 mb-4 mt-3">
-                Add Destination
+            <h1 class="text-2xl font-bold mb-4 mt-3 text-gray-800">
+                Articles Management
             </h1>
-            <div class="pt-5 bg-white mb-4">
-                <div class="p-6 space-y-6">
-                    <form action="./createActionDestination.php" method="POST" enctype="multipart/form-data">
-                        <div class="grid gap-6 mb-6 md:grid-cols-2">
-                            <div>
-                                <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Name</label>
-                                <input type="text" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Destination name" required>
-                            </div>
-                            <div>
-                                <label for="location" class="block mb-2 text-sm font-medium text-gray-900">Location</label>
-                                <input type="text" name="location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Location destination" required>
-                            </div>
-                        </div>
-                        <div class="mb-6">
-                            <label for="price" class="block mb-2 text-sm font-medium text-gray-900">Entrace ticket</label>
-                            <input type="text" name="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Entrace ticket pricing" required>
-                        </div>
-                        <div class="mb-6">
-                            <label for="complete_address" class="block mb-2 text-sm font-medium text-gray-900">Complete address</label>
-                            <input type="text" name="complete_address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Location destination" required>
-                        </div>
-                        <div class="mb-6">
-                            <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Description</label>
-                            <textarea id="description" rows="4" name="description" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
-                        </div>
-                        <div class="mb-6">
-                            <label for="image" class="block mb-2 text-sm font-medium text-gray-900">Image</label>
-                            <input name="image" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" id="file_input" type="file">
-                        </div>
-                        <button type="submit" class="text-white bg-indigo-500 hover:bg-indigo-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add Now!</button>
-                    </form>
+            <div class="pt-5 bg-white h-96 mb-4">
+                <a href="./createArticleForm.php" class="bg-indigo-500 text-sm text-white font-bold px-5 py-2.5">Add Articles</a>
+                <div class="overflow-x-auto px-4 mt-5">
+                    <table class="w-full text-sm text-left text-gray-800">
+                        <thead class="border-b-2 border-slate-500">
+                            <th scope="col" class="px-6 py-3">No</th>
+                            <th scope="col" class="px-6 py-3">Title</th>
+                            <th scope="col" class="px-6 py-3">Published</th>
+                            <th scope="col" class="px-6 py-3">Action</th>
+                        </thead>
+                        <tbody>
+                            <?php
+                            include('../../../config/databaseConnection.php');
+                            $sql = mysqli_query($connect, "SELECT * FROM article ORDER BY id ASC");
+                            $no = 1;
+                            while ($row = mysqli_fetch_array($sql)) {
+                                $id = $row['id'];
+                                $title = $row['title'];
+                                $content = $row['content'];
+                                $created_at = $row['created_at'];
+                            ?>
+                                <tr class="border-b">
+                                    <td scope="row" class="px-6 py-4 font-medium text-gray-600 whitespace-nowrap"><?php echo $no++; ?></td>
+                                    <td scope="row" class="px-6 py-4 font-medium text-gray-600 whitespace-nowrap"><?php echo $row['title'] ?></td>
+                                    <td scope="row" class="px-6 py-4 font-medium text-gray-600 whitespace-nowrap"><?php echo $row['created_at'] ?></td>
+                                    <td scope="row" class="px-6 py-4 font-medium text-gray-600 whitespace-nowrap">
+                                        <button type="button" class="flex mx-3 text-sm rounded-full md:mr-0 focus:ring-4 focus:ring-indigo-300" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="dropdownAction<?= $row['id'] ?>">
+                                            <span class="sr-only">Open user action</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+                                            </svg>
+                                        </button>
+                                        <!-- Dropdown menu -->
+                                        <div class="hidden z-50 my-4 w-56 text-base list-none bg-white divide-y divide-gray-100 shadow rounded-xl" id="dropdownAction<?= $row['id'] ?>">
+                                            <ul class="py-1 text-gray-700" aria-labelledby="dropdown">
+                                                <li>
+                                                    <a href="detailArticle.php?id=<?php echo $row['id']; ?>" class="flex py-3 px-4 content-center text-sm hover:text-indigo-600">Detail & Edit</a>
+                                                </li>
+
+                                                <li class="">
+                                                    <a href="deleteDestination.php?id=<?php echo $row['id']; ?>" class="flex py-3 px-4 content-center text-sm hover:text-red-600">Hapus</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php
+                            };
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </main>

@@ -23,8 +23,6 @@
     $name = $_SESSION['name'];
     $email = $_SESSION['email'];
 
-    $current_page = $_SERVER['REQUEST_URI'];
-
     if ($_SESSION['role'] != "admin") {
         header("location:index.php?pesan=gagal");
     }
@@ -133,32 +131,19 @@
         <!-- Main Content -->
         <main class="p-4 md:ml-64 min-h-screen pt-24">
             <h1 class="text-2xl font-bold text-gray-800 mb-4 mt-3">
-                Add Destination
+                Create Article
             </h1>
             <div class="pt-5 bg-white mb-4">
                 <div class="p-6 space-y-6">
-                    <form action="./createActionDestination.php" method="POST" enctype="multipart/form-data">
-                        <div class="grid gap-6 mb-6 md:grid-cols-2">
-                            <div>
-                                <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Name</label>
-                                <input type="text" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Destination name" required>
-                            </div>
-                            <div>
-                                <label for="location" class="block mb-2 text-sm font-medium text-gray-900">Location</label>
-                                <input type="text" name="location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Location destination" required>
-                            </div>
+                    <form action="./createActionArticle.php" method="POST" enctype="multipart/form-data">
+                        <div class="mb-6">
+                            <label for="title" class="block mb-2 text-sm font-medium text-gray-900">Title article</label>
+                            <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
+                            <input type="text" name="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Entrace ticket pricing" required>
                         </div>
                         <div class="mb-6">
-                            <label for="price" class="block mb-2 text-sm font-medium text-gray-900">Entrace ticket</label>
-                            <input type="text" name="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Entrace ticket pricing" required>
-                        </div>
-                        <div class="mb-6">
-                            <label for="complete_address" class="block mb-2 text-sm font-medium text-gray-900">Complete address</label>
-                            <input type="text" name="complete_address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Location destination" required>
-                        </div>
-                        <div class="mb-6">
-                            <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Description</label>
-                            <textarea id="description" rows="4" name="description" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
+                            <label for="content" class="block mb-2 text-sm font-medium text-gray-900">Content Article</label>
+                            <textarea id="content" rows="4" name="content" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
                         </div>
                         <div class="mb-6">
                             <label for="image" class="block mb-2 text-sm font-medium text-gray-900">Image</label>
