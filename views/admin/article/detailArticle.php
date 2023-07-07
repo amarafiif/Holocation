@@ -150,7 +150,7 @@
                 <div class="preview p-6">
                     <div class="flex justify-between">
                         <span class="text-center text-gray-800 font-semibold">Preview content</span>
-                        <a href="updateDestinationForm.php?id=<?php echo $row['id']; ?>" class="px-3 py-2 rounded-sm text-gray-50 bg-indigo-500 hover:bg-indigo-600">Edit Article</a>
+                        <a href="updateArticleForm.php?id=<?php echo $row['id']; ?>" class="px-3 py-2 rounded-sm text-gray-50 bg-indigo-500 hover:bg-indigo-600">Edit Article</a>
                     </div>
                     <hr class="mt-3 mb-5">
                     <div class="">
@@ -162,7 +162,7 @@
                     <span class="mt-4">
                         <?php echo $row['content']; ?>
                     </span>
-                    <section class="">
+                    <section class="" id="more_article">
                         <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
                             <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
                                 <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 ">More Articles</h2>
@@ -181,21 +181,17 @@
 
                             ?>
                                 <div class="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
-                                    <div class="flex flex-col mx-auto max-w-lg text-gray-900 bg-white rounded-lg border border-gray-100 shadow">
-                                        <div class="rounded overflow-hidden shadow">
-                                            <img class="w-full" src="./image/<?= $row['image']?>" alt="Thumbnail-article">
+                                    <div class="flex flex-col mx-auto text-gray-900 bg-white rounded-lg border border-gray-100 shadow">
+                                        <div class="rounded shadow">
+                                            <img class="w-full" src="./image/<?= $row['image'] ?>" alt="Thumbnail-article">
                                             <div class="px-6 py-4">
-                                                <div class="flex justify-between">
+                                                <a href="" class="hover:text-blue-500">
                                                     <h2 class="font-bold text-xl mb-2"><?= $row['title'] ?></h2>
-                                                    <a class="font-semibold text-xl mb-2 bg-blue-500 hover:bg-blue-700 text-white py-1 px-3 rounded">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
-                                                        </svg>
-                                                    </a>
-                                                </div>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
                                 <?php
                             }
                                 ?>

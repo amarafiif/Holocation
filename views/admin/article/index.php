@@ -177,7 +177,7 @@
                                                 </li>
 
                                                 <li class="">
-                                                    <a href="deleteDestination.php?id=<?php echo $row['id']; ?>" class="flex py-3 px-4 content-center text-sm hover:text-red-600">Hapus</a>
+                                                    <a href="deleteArticle.php?id=<?php echo $row['id']; ?>" class="flex py-3 px-4 content-center text-sm hover:text-red-600">Hapus</a>
                                                 </li>
                                             </ul>
                                         </div>
