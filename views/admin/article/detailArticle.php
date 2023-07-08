@@ -192,9 +192,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <?php
+                            <?php
                             }
-                                ?>
+                            ?>
                     </section>
                 </div>
             </div>
