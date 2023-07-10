@@ -4,7 +4,9 @@ include './config/databaseConnection.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['id'];
     $visitor_name = $_POST['visitor_name'];
+    $arrival_date = $_POST['arrival_date'];
     $ticket_total = $_POST['ticket_total'];
+    $generate_code_ticket = "HOL" . uniqid();
 
     // Mengambil harga tiket dari destinasi
     $sql_destinasi = "SELECT price FROM destination WHERE id = $id";
@@ -16,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $total_harga = $price * $ticket_total;
 
     // Memasukkan data pemesanan ke dalam tabel
-    $sql_pemesanan = "INSERT INTO booking (id_destination, visitor_name, ticket_total, price_total) VALUES ($id, '$visitor_name', $ticket_total, $total_harga)";
+    $sql_pemesanan = "INSERT INTO ticket (id_destination, ticket_code, visitor_name, arrival_date, ticket_total, price_total) VALUES ($id, '$generate_code_ticket', '$visitor_name', '$arrival_date', $ticket_total, $total_harga)";
     $result_pemesanan = $connect->query($sql_pemesanan);
 
     if ($result_pemesanan) {

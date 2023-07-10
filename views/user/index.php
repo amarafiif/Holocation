@@ -19,7 +19,7 @@
 </style>
 <?php
 session_start();
-if (isset($_SESSION['name']));
+if (isset($_SESSION['id']));
 $current_page = $_SERVER['REQUEST_URI'];
 
 if ($_SESSION['role'] != "user") {
@@ -55,7 +55,7 @@ if ($_SESSION['role'] != "user") {
                             <a href="#" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Blog</a>
                         </li>
                         <li>
-                            <a href="#" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Order Ticket</a>
+                            <a href="./tickets/listTicket.php" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Ticket</a>
                         </li>
                     </ul>
                 </div>

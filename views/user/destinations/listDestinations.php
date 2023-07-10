@@ -1,12 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php
+session_start();
+if (isset($_SESSION['name']));
+$current_page = $_SERVER['REQUEST_URI'];
+
+if ($_SESSION['role'] != "user") {
+    header("location:index.php?pesan=gagal");
+}
+?>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yogyakarta</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Destinations List</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
+<style>
+    body {
+        font-family: 'Inter';
+    }
+</style>
 
 <body>
     <header>
@@ -45,19 +66,33 @@
     </header>
 
 
-    <div class="bg-yellow-500">
-        <div class="container mx-auto py-12">
-            <p class="text-center text-4xl font-bold text-white">Yogyakarta</p>
+    <?php
+
+    $location = $_GET['location'];
+    include '../../../config/databaseConnection.php';
+    $sql = mysqli_query($connect, "SELECT DISTINCT location FROM destination WHERE location = '$location'");
+
+    while ($row = mysqli_fetch_array($sql)) {
+        $location = $row['location'];
+    ?>
+        <div class="bg-blue-300">
+            <div class="container mx-auto py-12">
+                <p class="text-center text-4xl font-bold text-white"><?= $row['location'] ?></p>
+            </div>
         </div>
-    </div>
+
+    <?php
+    }
+    ?>
 
     <div class="flex flex-wrap justify-center px-4 md:px-10 py-3">
         <div class="md:flex grid grid-cols-3 gap-4">
 
             <?php
 
+            $location = $_GET['location'];
             include '../../../config/databaseConnection.php';
-            $sql = mysqli_query($connect, "SELECT * FROM destination WHERE location = 'Yogyakarta'");
+            $sql = mysqli_query($connect, "SELECT * FROM destination WHERE location = '$location'");
 
             while ($row = mysqli_fetch_array($sql)) {
                 $name = $row['name'];
@@ -65,15 +100,17 @@
                 $price = $row['price'];
                 $image = $row['image'];
             ?>
-                <div class="max-w-sm rounded overflow-hidden shadow-lg m-5">
-                    <img class="w-full" src="../../admin/destinations/image/<?= $row['image']?>" alt="Sunset in the mountains">
+                <div class="max-w-sm rounded-3xl border-blue-200 border-2 overflow-hidden m-5">
+                    <img class="w-full" src="../../admin/destinations/image/<?= $row['image'] ?>" alt="Sunset in the mountains">
                     <div class="px-6 py-4">
-                        <div class="font-bold text-xl mb-2"><?= $row['name']?></div>
-                        <div class="flex justify-between items-end">
-                            <div></div>
-                            <div class="font-bold mr-28 mb-3 text-orange-400">IDR <?= $row['price']?></div>
-                            <button class="font-bold text-xl mb-2 bg-blue-500 hover:bg-blue-700 text-white py-1 px-3 rounded">
-                                <a href="tiketing.html">Lihat Detail</a>
+                        <div class="font-bold text-gray-700 text-xl mb-2"><?= $row['name'] ?></div>
+                        <div class="flex justify-between mt-10 items-end">
+                            <div class="mb-4 text-lg text-gray-400">IDR <?= $row['price'] ?></div>
+                            <button class="inline-flex content-center text-lg mb-2 space-x-3 align-middle bg-blue-400 hover:bg-yellow-500 text-white py-2 px-4 rounded-xl">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z" />
+                                </svg>
+                                <a href="../tickets/orderTicket.php?id=<?= $row['id'] ?>">Order</a>
                             </button>
                         </div>
                     </div>

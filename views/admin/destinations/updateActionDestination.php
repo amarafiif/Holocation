@@ -19,7 +19,7 @@ if ($image != "") {
         move_uploaded_file($file_tmp, 'image/' . $nama_gambar_baru);
 
         // $query = "INSERT INTO destination(name, description, image, location) VALUES('$name', '$description', '$image', '$location')";
-        $query = "UPDATE destionation SET name = '$name', description = '$description', image = '$nama_gambar_baru', location = '$location' WHERE id = $id";
+        $query = "UPDATE destination SET name = '$name', description = '$description', image = '$nama_gambar_baru', location = '$location' WHERE id = $id";
         $result = mysqli_query($connect, $query);
 
         if (!$result) {

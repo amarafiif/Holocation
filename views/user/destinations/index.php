@@ -1,3 +1,13 @@
+<?php
+session_start();
+if (isset($_SESSION['name']));
+$current_page = $_SERVER['REQUEST_URI'];
+
+if ($_SESSION['role'] != "user") {
+    header("location:../../../views/auth/login.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,70 +62,38 @@
                 </div>
             </div>
         </nav>
-
-        <div class="bg-[url('../../../assets/tour/bg-nav.png')] bg-no-repeat">
-            <div class="container py-10 mx-auto">
-                <ul class="font-bold text-4xl lg:flex justify-center hidden text-gray-50">
-                    <h1>Popular Destinations Tour</h1>
-                </ul>
-            </div>
-        </div>
     </header>
 
-    <?php
-
-    include '../../../config/databaseConnection.php';
-    $sql = mysqli_query($connect, "SELECT * FROM destination");
-
-    while ($row = mysqli_fetch_array($sql)) {
-        $name = $row['name'];
-        $location = $row['location'];
-    ?>
-        <main class=" bg-no-repeat">
-            <section id="home">
-                <div class="mx-auto">
-                    <div class="flex flex-col items-center z-20 md:flex-row">
+    <div class="bg-blue-300">
+        <div class="container mx-auto py-12">
+            <p class="text-center text-4xl font-bold text-white">Popular Destinations</p>
+        </div>
+    </div>
+    <main class=" bg-no-repeat">
+        <section id="home">
+            <div class="mx-auto gap-2">
+                <div class="flex flex-col items-center md:flex-row">
+                    <?php
+                    include '../../../config/databaseConnection.php';
+                    $sql = mysqli_query($connect, "SELECT DISTINCT location FROM destination order by location DESC");
+                    while ($row = mysqli_fetch_array($sql)) {
+                        $location = $row['location'];
+                    ?>
                         <div class="md:w-1/2 relative overflow-hidden bg-cover bg-no-repeat">
                             <button class=" hover:scale-105  transition duration-300 ease-in-out">
-                                <a href="./listDestinations.php">
+                                <a href="./listDestinations.php?location=<?php echo $row['location']?>">
                                     <img class="mx-auto" src="../../../assets/tour/yogya1.png" alt="" />
                                     <h1 class="absolute font-bold text-2xl px-5 py-2.5 rounded-md hover:bg-yellow-400 text-white bg-blue-400 bottom-4 left-1/2 -translate-x-1/2 p-4"><?= $row['location'] ?></h1>
                                 </a>
                             </button>
                         </div>
-                    </div>
-                    <!-- </a>
-                <div class="flex flex-col items-center z-20 md:flex-row">
-                    <div class="md:w-1/3 max-w-full relative overflow-hidden bg-cover bg-no-repeat ">
-                        <button class="hover:scale-105 transition duration-300 ease-in-out">
-                            <img class="mx-auto" src="../../../assets/tour/lombok2.png" alt="" />
-                            <div class="absolute top-0 left-0 right-0 bottom-0 flex items-end justify-center">
-                            <h1 class="absolute font-bold text-2xl px-7 py-2.5 rounded-md hover:bg-yellow-400 text-white bg-blue-400 bottom-4 left-1/2 -translate-x-1/2 p-4">Lombok</h1>
-                            </div>
-                        </button>
-                    </div>
-                    <div class="md:w-1/3 max-w-full relative overflow-hidden bg-cover bg-no-repeat">
-                        <button class="hover:scale-105 transition duration-300 ease-in-out">
-                            <img src="../../../assets/tour/NTT1.png" alt="" />
-                            <div class="absolute top-0 left-0 right-0 bottom-0 flex items-end justify-center">
-                            <h1 class="absolute font-bold text-2xl px-7 py-2.5 rounded-md hover:bg-yellow-400 text-white bg-blue-400 bottom-4 left-1/2 -translate-x-1/2 p-4">Nusa Tenggara Timur</h1>
-                            </div>
-                        </button>
-                    </div>
-                    <div class="md:w-1/3 max-w-full relative overflow-hidden bg-cover bg-no-repeat">
-                        <button class="hover:scale-105 transition duration-300 ease-in-out">
-                            <img src="../../../assets/tour/papua3.png" alt="" />
-                            <div class="absolute top-0 left-0 right-0 bottom-0 flex items-end justify-center">
-                            <h1 class="absolute font-bold text-2xl px-7 py-2.5 rounded-md hover:bg-yellow-400 text-white bg-blue-400 bottom-4 left-1/2 -translate-x-1/2 p-4">Papua</h1>
-                            </div>
-                        </button>
-                    </div> -->
+                    <?php
+                    }
+                    ?>
                 </div>
-            </section>
-        </main>
-    <?php
-    }
-    ?>
+            </div>
+        </section>
+    </main>
 </body>
 
 </html>

@@ -19,83 +19,37 @@
 </style>
 
 <body>
-    <div class="bg-[url('./assets/navbarimg2.png')] bg-no-repeat bg-cover">
-        <div class="container mx-auto py-4">
-            <!-- navbar -->
-            <nav class="flex justify-between items-center">
-                <a href="landingpage.html">
-                    <div>
-                        <ul class="font-bold text-3xl opacity-100">
-                            <li><img class="w-16" src="./assets/logokita.png" alt="" /></li>
-                        </ul>
-                    </div>
+    <header>
+        <nav class="bg-[url('../../assets/navbarimg2.png')] bg-cover border-gray-200 px-4 lg:px-6 py-4">
+            <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+                <a href="./index.php" class="flex items-center">
+                    <img src="../../assets/logokita.png" class="mr-3 w-16" alt="Logo Holocation" />
                 </a>
-
-                <ul class="font-semibold text-2xl lg:flex gap-6 hidden text-blue-400">
-                    <li>
-                        <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" class="text-blue-400 hover:text-blue-500 font-medium rounded-lg text-2xl  text-center inline-flex items-center" type="button">
-                            Liburan
-                            <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </button>
-                        <!-- Dropdown menu -->
-                        <div id="dropdownHover" class="z-10 hidden bg-white rounded-lg shadow w-44 dark:bg-blue-400">
-                            <ul class="py-2 text-lg text-white" aria-labelledby="dropdownHoverButton">
-                                <li>
-                                    <a href="#" class="block px-4 py-2 dark:hover:bg-blue-500 dark:hover:text-white">Tour</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="block px-4 py-2 dark:hover:bg-blue-500 dark:hover:text-white">Hotel</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="block px-4 py-2 dark:hover:bg-blue-500 dark:hover:text-white">Souvenir</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="block px-4 py-2 dark:hover:bg-blue-500 dark:hover:text-white">Train</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <a href="profil.html">
-                        <li class=" cursor-pointer hover:text-blue-600  bg-opacity-70 ease-in duration-300">My Profile</li>
-                    </a>
-                    <li class=" cursor-pointer hover:text-blue-600  bg-opacity-70 ease-in duration-300">my E-tiket</li>
-                </ul>
-                <div class="text-2xl font-bold gap-6 lg:flex hidden">
-                    <!-- <button class="text-white bg-blue-400 px-6 py-3 rounded-lg text-2xl">my E-tiket</button> -->
-                    <a href="./views/auth/register.php" class="text-blue-400 hover:text-blue-600 px-3 py-2.5 rounded-lg text-2xl">Sign Up</a>
-                    <a href="./views/auth/login.php" class="text-white bg-blue-400 px-5 py-2.5 rounded-lg text-2xl hover:bg-blue-600">Login</a>
+                <div class="flex items-center lg:order-2">
+                    <a href="./views/auth/login.php" class="text-gray-50 bg-blue-400 hover:bg-yellow-600 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-xl px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none">Login</a>
+                    <button data-collapse-toggle="mobile-menu-2" type="button" class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="mobile-menu-2" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                        </svg>
+                        <svg class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
                 </div>
-                <button class="lg:hidden block buttonToogle">
-                    <img src="./assets/humburger.png" alt="hamburger" />
-                </button>
-            </nav>
-            <!-- mobileMenu(responsifmobile) -->
-            <div class="mobilemenu hidden">
-                <ul class="font-semibold gap-6">
-                    <li class="py-6 px-4 cursor-pointer hover:bg-thirdty bg-blue-400 bg-opacity-70 ease-in duration-300">Liburan</li>
-                    <li class="py-6 px-4 cursor-pointer hover:bg-thirdty bg-blue-400 bg-opacity-70 ease-in duration-300">My Profile</li>
-                    <li class="py-6 px-4 cursor-pointer hover:bg-thirdty bg-blue-400 bg-opacity-70 ease-in duration-300">My Etiket</li>
-                </ul>
-                <div class="text-2xl font-bold gap-2 flex">
-                    <button class="w-full text-white bg-blue-400 px-6 py-3 text-2xl">LOGIN</button>
-                    <button class="w-full text-blue-400 outline px-6 py-2.5">SIGN IN</button>
+                <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
+                    <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                        <li>
+                            <a href="./destinations/index.php" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Destination</a>
+                        </li>
+                        <li>
+                            <a href="./views/article/index.php" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Article</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Navbar Mobile -->
-
-    <script>
-        const buttonToogle = document.querySelector(".buttonToogle");
-        const mobilemenu = document.querySelector(".mobilemenu");
-
-        buttonToogle.addEventListener("click", function() {
-            mobilemenu.classList.toggle("hidden");
-        });
-    </script>
+        </nav>
+    </header>
 
     <div class="mx-auto mr-auto mt-8">
         <div class="items-center">
@@ -116,7 +70,7 @@
             </swiper-container>
         </div>
     </div>
-    
+
     <div class="flex justify-center mt-16 py-2">
         <span class="font-extrabold text-gray-900 text-4xl">
             <p>Why Holocation?</p>

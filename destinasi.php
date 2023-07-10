@@ -15,6 +15,7 @@ if ($result->num_rows > 0) {
         echo "<form method='POST' action='pesan.php'>";
         echo "<input type='hidden' name='id' value='" . $row['id'] . "'>";
         echo "<input type='text' name='visitor_name' placeholder='Visitor Name' required><br>";
+        echo "<input type='date' name='arrival_date' placeholder='Visitor Name' required><br>";
         echo "<input type='number' name='ticket_total' placeholder='Ticket Total' required><br>";
         echo "<button type='submit'>Pesan Tiket</button>";
         echo "</form>";
