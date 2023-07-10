@@ -53,7 +53,7 @@ if ($_SESSION['role'] != "user") {
                             <a href="./destinations/index.php" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Destination</a>
                         </li>
                         <li>
-                            <a href="#" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Blog</a>
+                            <a href="../../article/index.php" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Blog</a>
                         </li>
                         <li>
                             <a href="#" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Order Ticket</a>
@@ -100,47 +100,87 @@ if ($_SESSION['role'] != "user") {
                                     <span class="mt-4 text-gray-800">
                                         <?php echo $row['description']; ?>
                                     </span>
+
+
                                     <div class="review mt-10">
                                         <h3 class="font-extrabold text-2xl text-gray-800 ">Review</h3>
                                         <span class="text-md font-normal text-gray-700">Apa kata mereka tentang destinasi ini?</span>
+                                        <?php
+                                        include '../../../config/databaseConnection.php';
+                                        $id_destination = $_GET['id'];
+
+                                        $sql_ulasan = "SELECT * FROM review WHERE id_destination = $id_destination";
+                                        $result_ulasan = $connect->query($sql_ulasan);
+
+                                        if ($result_ulasan->num_rows > 0) {
+                                            while ($row_ulasan = $result_ulasan->fetch_assoc()) {
+                                        ?>
+                                                <div class="show-comment space-y-3 rounded-lg my-3 bg-slate-300 py-3 px-5">
+                                                    <label for="visitor_name"><?php echo $row_ulasan['visitor_name'] ?></label>
+                                                    <p><?= $row_ulasan['review'] ?></p>
+                                                </div>
+                                        <?php
+                                            }
+                                        } else {
+                                            echo "Belum ada ulasan untuk destinasi ini.";
+                                        }
+                                        ?>
+                                        <form method="POST" action="../reviews/createActionReview.php" class="w-full bg-white rounded-lg px-4 pt-2">
+                                            <div class="flex bg-gray-200 rounded-lg py-4 px-5 flex-wrap -mx-3 mb-6">
+                                                <h2 class="px-4 pt-3 pb-2 text-gray-800 text-lg">Add a new comment</h2>
+                                                <div class="w-full md:w-full px-3 mb-2 mt-2">
+                                                    <input name="id" type="hidden" value="<?= $_GET['id'] ?>" class="py-3 px-4 border-2 border-gray-300 text-sm rounded-lg text-gray-700 p-2.5 w-full">
+                                                    <div class="space-y-2 mb-6">
+                                                        <label class="font-medium text-sm text-gray-600">Your Name</label>
+                                                        <input name="visitor_name" type="text" class="py-3 px-4 border-2 border-gray-300 text-sm rounded-lg text-gray-700 p-2.5 w-full">
+                                                    </div>
+                                                    <textarea class="bg-gray-100 border-2 rounded border-gray-300 resize-none w-full h-28 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white" name="review" placeholder='Type Your Comment' required>
+
+                                                    </textarea>
+                                                    <div class="float-right my-2">
+                                                        <input type='submit' class="bg-blue-400 text-gray-50 font-medium py-2 px-4 border border-gray-300 rounded-lg tracking-wide mr-1 hover:bg-blue-500" value='Post Comment'>
+                                                    </div>
+                                                </div>
+                                        </form>
                                     </div>
                                 </div>
-                            <?php
-                        }
-                            ?>
                             </div>
-                            <div class="w-5/12 mt-28">
-                                <form action="./orderAction.php" method="POST">
-                                    <div class=" bg-blue-100 rounded-2xl  py-4 px-5">
-                                        <h2 class="text-2xl font-extrabold text-gray-700 py-5 border-b-2 border-gray-300 text-center">Order now</h2>
-                                        <div class="py-5 text-gray-50">
-                                            <div class="space-y-2 mb-6">
-                                                <input name="id" type="hidden" value="<?= $_GET['id']?>" class="py-3 px-4 border-2 border-gray-300 text-sm rounded-lg text-gray-700 p-2.5 w-full">
-                                                <input name="id_users" type="hidden" value="<?= $_SESSION['id']?>" class="py-3 px-4 border-2 border-gray-300 text-sm rounded-lg text-gray-700 p-2.5 w-full">
-                                                <label class="font-medium text-sm text-gray-600">Customer Name</label>
-                                                <input name="visitor_name" type="text" class="py-3 px-4 border-2 border-gray-300 text-sm rounded-lg text-gray-700 p-2.5 w-full">
-                                            </div>
-                                            <div class="space-y-2 mb-6">
-                                                <label class="font-medium text-sm text-gray-600">Total Ticket</label>
-                                                <input name="ticket_total" type="number" class="py-3 px-4 border-2 border-gray-300 text-sm rounded-lg text-gray-700 p-2.5 w-full">
-                                            </div>
-                                            <div class="space-y-2 mb-6">
-                                                <label class="font-medium text-sm text-gray-600">Arrival Date</label>
-                                                <input name="arrival_date" type="date" class="py-3 px-4 border-2 border-gray-300 text-sm rounded-lg text-gray-700 p-2.5 w-full">
-                                            </div>
-                                            <div class="space-y-2 mb-6">
-                                                <button type="submit" class="py-3 px-4 border-2 bg-blue-400 border-gray-300 text-sm font-bold rounded-lg text-gray-50 p-2.5 w-full">
-                                                    Order
-                                                </button>
-                                            </div>
+                        <?php
+                    }
+                        ?>
+                        </div>
+                        <div class="w-5/12 mt-28">
+                            <form action="./orderAction.php" method="POST">
+                                <div class=" bg-blue-100 rounded-2xl  py-4 px-5">
+                                    <h2 class="text-2xl font-extrabold text-gray-700 py-5 border-b-2 border-gray-300 text-center">Order now</h2>
+                                    <div class="py-5 text-gray-50">
+                                        <div class="space-y-2 mb-6">
+                                            <input name="id" type="hidden" value="<?= $_GET['id'] ?>" class="py-3 px-4 border-2 border-gray-300 text-sm rounded-lg text-gray-700 p-2.5 w-full">
+                                            <input name="id_users" type="hidden" value="<?= $_SESSION['id'] ?>" class="py-3 px-4 border-2 border-gray-300 text-sm rounded-lg text-gray-700 p-2.5 w-full">
+                                            <label class="font-medium text-sm text-gray-600">Customer Name</label>
+                                            <input name="visitor_name" type="text" class="py-3 px-4 border-2 border-gray-300 text-sm rounded-lg text-gray-700 p-2.5 w-full">
+                                        </div>
+                                        <div class="space-y-2 mb-6">
+                                            <label class="font-medium text-sm text-gray-600">Total Ticket</label>
+                                            <input name="ticket_total" type="number" class="py-3 px-4 border-2 border-gray-300 text-sm rounded-lg text-gray-700 p-2.5 w-full">
+                                        </div>
+                                        <div class="space-y-2 mb-6">
+                                            <label class="font-medium text-sm text-gray-600">Arrival Date</label>
+                                            <input name="arrival_date" type="date" class="py-3 px-4 border-2 border-gray-300 text-sm rounded-lg text-gray-700 p-2.5 w-full">
+                                        </div>
+                                        <div class="space-y-2 mb-6">
+                                            <button type="submit" class="py-3 px-4 border-2 bg-blue-400 border-gray-300 text-sm font-bold rounded-lg text-gray-50 p-2.5 w-full">
+                                                Order
+                                            </button>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
         </div>
+    </div>
     </div>
 
 

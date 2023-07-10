@@ -33,7 +33,7 @@ if ($_SESSION['role'] != "user") {
     <header>
         <nav class="bg-[url('../../../assets/navbarimg2.png')] bg-cover border-gray-200 px-4 lg:px-6 py-4">
             <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-                <a href="./index.php" class="flex items-center">
+                <a href="../../../index.php" class="flex items-center">
                     <img src="../../../assets/logokita.png" class="mr-3 w-16" alt="Logo Holocation" />
                 </a>
                 <div class="flex items-center lg:order-2">

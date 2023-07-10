@@ -32,7 +32,7 @@ if ($_SESSION['role'] != "user") {
     <header>
         <nav class="bg-[url('../../../assets/navbarimg2.png')] bg-cover border-gray-200 px-4 lg:px-6 py-4">
             <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-                <a href="./index.php" class="flex items-center">
+                <a href="../../../index.php" class="flex items-center">
                     <img src="../../../assets/logokita.png" class="mr-3 w-16" alt="Logo Holocation" />
                 </a>
                 <div class="flex items-center lg:order-2">
@@ -50,13 +50,13 @@ if ($_SESSION['role'] != "user") {
                 <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
                     <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                         <li>
-                            <a href="./destinations/index.php" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Destination</a>
+                            <a href="../destinations/index.php" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Destination</a>
                         </li>
                         <li>
-                            <a href="#" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Blog</a>
+                            <a href="../../article/index.php" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Blog</a>
                         </li>
                         <li>
-                            <a href="#" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Order Ticket</a>
+                            <a href="../tickets/listTicket.php" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Ticket</a>
                         </li>
                     </ul>
                 </div>
@@ -81,7 +81,7 @@ if ($_SESSION['role'] != "user") {
                     ?>
                         <div class="md:w-1/2 relative overflow-hidden bg-cover bg-no-repeat">
                             <button class=" hover:scale-105  transition duration-300 ease-in-out">
-                                <a href="./listDestinations.php?location=<?php echo $row['location']?>">
+                                <a href="./listDestinations.php?location=<?php echo $row['location'] ?>">
                                     <img class="mx-auto" src="../../../assets/tour/yogya1.png" alt="" />
                                     <h1 class="absolute font-bold text-2xl px-5 py-2.5 rounded-md hover:bg-yellow-400 text-white bg-blue-400 bottom-4 left-1/2 -translate-x-1/2 p-4"><?= $row['location'] ?></h1>
                                 </a>
