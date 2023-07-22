@@ -108,7 +108,7 @@
                             </div>
                             <div class="flex float-right px-5 pt-3 text-sm">
                                 <div class="flex flex-col text-right">
-                                    <span class="text-gray-400">Harga</span>
+                                    <span class="text-gray-400">Total Harga</span>
                                     <span class="font-extrabold text-2xl text-gray-800">Rp. <?= $row['price_total'] ?></span>
                                 </div>
                             </div>

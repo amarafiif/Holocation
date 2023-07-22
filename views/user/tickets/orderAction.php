@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($result_pemesanan) {
         echo "Pemesanan tiket berhasil!";
 
-        header('Location:./destinations/index.php');
+        header('Location:../destinations/index.php');
     } else {
         echo "Terjadi kesalahan saat memesan tiket.";
     }

@@ -14,7 +14,7 @@
     }
 </style>
 <body>
-    <div class="flex min-h-screen bg-[url('/assets/loginbg.png')] min-h-screen bg-center bg-cover flex-col justify-center px-6 py-12 lg:px-8 bg-slate-600">
+    <div class="flex bg-[url('/assets/loginbg.png')] min-h-screen bg-center bg-cover flex-col justify-center px-6 py-12 lg:px-8 bg-slate-600">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
             <img class="mx-auto  w-48 md:w-32 sm:w-12" src="/assets/logokita.png" alt="logo_holocation">
         </div>

@@ -32,7 +32,7 @@ if ($_SESSION['role'] != "user") {
     <header>
         <nav class="bg-[url('../../../assets/navbarimg2.png')] bg-cover border-gray-200 px-4 lg:px-6 py-4">
             <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-                <a href="./index.php" class="flex items-center">
+                <a href="../../user/index.php" class="flex items-center">
                     <img src="../../../assets/logokita.png" class="mr-3 w-16" alt="Logo Holocation" />
                 </a>
                 <div class="flex items-center lg:order-2">
@@ -50,13 +50,13 @@ if ($_SESSION['role'] != "user") {
                 <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
                     <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                         <li>
-                            <a href="./destinations/index.php" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Destination</a>
+                            <a href="../../user/destinations/index.php" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Destination</a>
                         </li>
                         <li>
                             <a href="../../article/index.php" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Blog</a>
                         </li>
                         <li>
-                            <a href="#" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Order Ticket</a>
+                            <a href="../../user/tickets/listTicket.php" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Ticket</a>
                         </li>
                     </ul>
                 </div>
@@ -73,9 +73,9 @@ if ($_SESSION['role'] != "user") {
     <div class="flex flex-wrap justify-center px-4 md:px-10 py-3">
         <div class="md:flex grid grid-cols-3 gap-4">
             <?php
-            $id = $_GET['id'];
+            $id_des = $_GET['id'];
             include '../../../config/databaseConnection.php';
-            $sql = mysqli_query($connect, "SELECT * FROM destination WHERE id = '$id'");
+            $sql = mysqli_query($connect, "SELECT * FROM destination WHERE id = '$id_des'");
             while ($row = mysqli_fetch_array($sql)) {
                 $name = $row['name'];
                 $location = $row['location'];
@@ -97,48 +97,75 @@ if ($_SESSION['role'] != "user") {
                                             <?php echo $row['complete_address'] ?></small>
                                     </div>
                                     <img class="flex my-5 min-w-full" src="../../admin/destinations/image/<?php echo $row['image'] ?>" alt="thumbnail" />
-                                    <span class="mt-4 text-gray-800">
+                                    <span class="mt-4 text-gray-00">
                                         <?php echo $row['description']; ?>
                                     </span>
 
 
                                     <div class="review mt-10">
-                                        <h3 class="font-extrabold text-2xl text-gray-800 ">Review</h3>
-                                        <span class="text-md font-normal text-gray-700">Apa kata mereka tentang destinasi ini?</span>
+                                        <h3 class="font-extrabold text-3xl text-blue-400 my-5">Review</h3>
                                         <?php
                                         include '../../../config/databaseConnection.php';
-                                        $id_destination = $_GET['id'];
+                                        // $id_destination = $_GET['id'];
 
-                                        $sql_ulasan = "SELECT * FROM review WHERE id_destination = $id_destination";
+                                        $sql_ulasan = "SELECT * FROM review WHERE id_destination='$id_des'";
                                         $result_ulasan = $connect->query($sql_ulasan);
 
                                         if ($result_ulasan->num_rows > 0) {
                                             while ($row_ulasan = $result_ulasan->fetch_assoc()) {
+                                                $id = $row_ulasan['id'];
+                                                $id_destination = $row_ulasan['id_destination'];
+                                                $visitor_name = $row_ulasan['visitor_name'];
+                                                $review = $row_ulasan['review'];
                                         ?>
-                                                <div class="show-comment space-y-3 rounded-lg my-3 bg-slate-300 py-3 px-5">
-                                                    <label for="visitor_name"><?php echo $row_ulasan['visitor_name'] ?></label>
-                                                    <p><?= $row_ulasan['review'] ?></p>
-                                                </div>
+                                                <!-- Tampilan Review -->
+                                                <article class="p-6 mb-6 text-base rounded-lg bg-white border border-gray-200">
+                                                    <footer class="flex justify-between items-center mb-2">
+                                                        <p class="inline-flex items-center font-bold mr-3 text-sm text-gray-700"><?= $row_ulasan['visitor_name'] ?></p>
+                                                        <div class="flex items-center">
+                                                        </div>
+                                                        <button id="dropdownComment1Button" data-dropdown-toggle="dropdownComment<?= $row_ulasan['id'] ?>" class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50" type="button">
+                                                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z">
+                                                                </path>
+                                                            </svg>
+                                                            <span class="sr-only">Comment settings</span>
+                                                        </button>
+                                                        <!-- Dropdown menu -->
+                                                        <div id="dropdownComment<?= $row_ulasan['id'] ?>" class="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow">
+                                                            <ul class="py-1 text-sm text-gray-700" aria-labelledby="dropdownMenuIconHorizontalButton">
+                                                                <li>
+                                                                    <a href="../reviews/updateFormReview.php?id=<?= $row_ulasan['id'] ?>" class="block py-2 px-4 hover:text-blue-500">Edit</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="../reviews/deleteActionReview.php?id=<?= $row_ulasan['id'] ?>" class="block py-2 px-4 hover:text-red-500">Remove</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </footer>
+                                                    <p class="text-gray-700"><?= $row_ulasan['review'] ?></p>
+                                                </article>
                                         <?php
                                             }
                                         } else {
                                             echo "Belum ada ulasan untuk destinasi ini.";
                                         }
                                         ?>
-                                        <form method="POST" action="../reviews/createActionReview.php" class="w-full bg-white rounded-lg px-4 pt-2">
-                                            <div class="flex bg-gray-200 rounded-lg py-4 px-5 flex-wrap -mx-3 mb-6">
-                                                <h2 class="px-4 pt-3 pb-2 text-gray-800 text-lg">Add a new comment</h2>
-                                                <div class="w-full md:w-full px-3 mb-2 mt-2">
+                                        <!-- Form Create Review -->
+                                        <form method="POST" action="../reviews/createActionReview.php" class="w-full bg-white rounded-lg pt-2">
+                                            <div class="flex bg-gray-100 rounded-lg py-4 px-5 flex-wrap mb-6">
+                                                <h2 class="px-4 pt-3 pb-2 text-gray-600 text-lg font-bold">Add a new comment</h2>
+                                                <div class="w-full px-3 mb-2 mt-2">
                                                     <input name="id" type="hidden" value="<?= $_GET['id'] ?>" class="py-3 px-4 border-2 border-gray-300 text-sm rounded-lg text-gray-700 p-2.5 w-full">
                                                     <div class="space-y-2 mb-6">
                                                         <label class="font-medium text-sm text-gray-600">Your Name</label>
-                                                        <input name="visitor_name" type="text" class="py-3 px-4 border-2 border-gray-300 text-sm rounded-lg text-gray-700 p-2.5 w-full">
+                                                        <input name="visitor_name" type="text" placeholder="Type your name" class="py-3 px-4 border-gray-300 rounded-lg text-gray-700 p-2.5 w-full" required>
                                                     </div>
-                                                    <textarea class="bg-gray-100 border-2 rounded border-gray-300 resize-none w-full h-28 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white" name="review" placeholder='Type Your Comment' required>
+                                                    <label class="font-medium text-sm text-gray-600">Review</label>
 
-                                                    </textarea>
+                                                    <textarea class=" border rounded-lg border-gray-300 resize-none w-full h-28 py-2 px-3 placeholder-gray-400 focus:outline-none focus:bg-white" name="review" placeholder='Type Your Comment' required></textarea>
                                                     <div class="float-right my-2">
-                                                        <input type='submit' class="bg-blue-400 text-gray-50 font-medium py-2 px-4 border border-gray-300 rounded-lg tracking-wide mr-1 hover:bg-blue-500" value='Post Comment'>
+                                                        <input type='submit' class="bg-blue-400 my-3 text-gray-50 font-medium py-2 px-4 border border-gray-300 rounded-lg mr-1 hover:bg-blue-500" value='Post Comment'>
                                                     </div>
                                                 </div>
                                         </form>

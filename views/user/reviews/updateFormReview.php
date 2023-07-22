@@ -1,20 +1,20 @@
-<?php
-session_start();
-if (isset($_SESSION['name']));
-$current_page = $_SERVER['REQUEST_URI'];
-
-if ($_SESSION['role'] != "user") {
-    header("location:../../../views/auth/login.php");
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
+
+<?php
+session_start();
+if (isset($_SESSION['id']));
+
+if ($_SESSION['role'] != "user") {
+    header("location:index.php?pesan=gagal");
+}
+?>
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HoliCation</title>
+    <title>Order Ticket</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.js"></script>
@@ -32,7 +32,7 @@ if ($_SESSION['role'] != "user") {
     <header>
         <nav class="bg-[url('../../../assets/navbarimg2.png')] bg-cover border-gray-200 px-4 lg:px-6 py-4">
             <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-                <a href="../../user/index.php" class="flex items-center">
+                <a href="./index.php" class="flex items-center">
                     <img src="../../../assets/logokita.png" class="mr-3 w-16" alt="Logo Holocation" />
                 </a>
                 <div class="flex items-center lg:order-2">
@@ -50,13 +50,13 @@ if ($_SESSION['role'] != "user") {
                 <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
                     <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                         <li>
-                            <a href="../destinations/index.php" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Destination</a>
+                            <a href="./destinations/index.php" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Destination</a>
                         </li>
                         <li>
                             <a href="../../article/index.php" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Blog</a>
                         </li>
                         <li>
-                            <a href="../tickets/listTicket.php" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Ticket</a>
+                            <a href="#" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Order Ticket</a>
                         </li>
                     </ul>
                 </div>
@@ -66,34 +66,38 @@ if ($_SESSION['role'] != "user") {
 
     <div class="bg-blue-300">
         <div class="container mx-auto py-12">
-            <p class="text-center text-4xl font-bold text-white">Popular Destinations</p>
+            <p class="text-center text-4xl font-bold text-white">Edit Review</p>
         </div>
     </div>
-    <main class=" bg-no-repeat">
-        <section id="home">
-            <div class="mx-auto gap-2">
-                <div class="flex flex-col items-center md:flex-row">
+
+    <div class="flex flex-wrap justify-center px-4 md:px-10 py-3">
+        <div class="md:flex grid grid-cols-3 gap-4">
+            <form method="POST" action="../reviews/updateActionReview.php" class="w-full bg-white rounded-lg pt-2">
+                <div class="flex bg-gray-100 rounded-lg py-4 px-5 flex-wrap mb-6">
+                    <h2 class="px-4 pt-3 pb-2 text-gray-600 text-lg font-bold">Edit a new comment</h2>
                     <?php
-                    include '../../../config/databaseConnection.php';
-                    $sql = mysqli_query($connect, "SELECT DISTINCT location FROM destination order by location DESC");
-                    while ($row = mysqli_fetch_array($sql)) {
-                        $location = $row['location'];
+                    include('../../../config/databaseConnection.php');
+                    $id = $_GET['id'];
+                    $sql = mysqli_query($connect, "SELECT * FROM review WHERE id = $id");
+                    $row = mysqli_fetch_array($sql);
                     ?>
-                        <div class="md:w-1/2 relative overflow-hidden bg-cover bg-no-repeat">
-                            <button class=" hover:scale-105  transition duration-300 ease-in-out">
-                                <a href="./listDestinations.php?location=<?php echo $row['location'] ?>">
-                                    <img class="mx-auto" src="../../../assets/tour/yogya1.png" alt="" />
-                                    <h1 class="absolute font-bold text-2xl px-5 py-2.5 rounded-md hover:bg-yellow-400 text-white bg-blue-400 bottom-4 left-1/2 -translate-x-1/2 p-4"><?= $row['location'] ?></h1>
-                                </a>
-                            </button>
+                    <div class="w-full px-3 mb-2 mt-2">
+                        <input name="id" type="hidden" value="<?= $_GET['id'] ?>" class="py-3 px-4 border-2 border-gray-300 text-sm rounded-lg text-gray-700 p-2.5 w-full">
+                        <div class="space-y-2 mb-6">
+                            <label class="font-medium text-sm text-gray-600">Your Name</label>
+                            <input name="visitor_name" type="text" value="<?php echo $row['visitor_name'] ?>" class="py-3 px-4 border-gray-300 rounded-lg text-gray-700 p-2.5 w-full">
                         </div>
-                    <?php
-                    }
-                    ?>
+
+                        <label class="font-medium text-sm text-gray-600">Review</label>
+                        <textarea class=" border rounded-lg border-gray-300 resize-none w-full h-28 py-2 px-3 placeholder-gray-400 focus:outline-none focus:bg-white" name="review" required><?php echo $row['review'] ?></textarea>
+                        <div class="float-right my-2">
+                            <input type='submit' class="bg-blue-400 my-3 text-gray-50 font-medium py-2 px-4 border border-gray-300 rounded-lg mr-1 hover:bg-blue-500" value='Post Comment'>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </section>
-    </main>
+            </form>
+        </div>
+    </div>
 </body>
 
 </html>

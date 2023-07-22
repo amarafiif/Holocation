@@ -23,11 +23,11 @@
     <header>
         <nav class="bg-[url('../../assets/navbarimg2.png')] bg-cover border-gray-200 px-4 lg:px-6 py-4">
             <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-                <a href="../../index.php" class="flex items-center">
+                <a href="../../views/user/index.php" class="flex items-center">
                     <img src="../../assets/logokita.png" class="mr-3 w-16" alt="Logo Holocation" />
                 </a>
                 <div class="flex items-center lg:order-2">
-                    <a href="./views/auth/login.php" class="text-gray-50 bg-blue-400 hover:bg-yellow-600 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-xl px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none">Login</a>
+                    <!-- <a href="./views/auth/login.php" class="text-gray-50 bg-blue-400 hover:bg-yellow-600 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-xl px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none">Logout</a> -->
                     <button data-collapse-toggle="mobile-menu-2" type="button" class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="mobile-menu-2" aria-expanded="false">
                         <span class="sr-only">Open main menu</span>
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

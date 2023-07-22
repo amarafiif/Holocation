@@ -52,7 +52,7 @@ if ($_SESSION['role'] != "user") {
                             <a href="./destinations/index.php" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Destination</a>
                         </li>
                         <li>
-                            <a href="#" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Blog</a>
+                            <a href="../../views/article/index.php" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Blog</a>
                         </li>
                         <li>
                             <a href="./tickets/listTicket.php" class="block py-2 pr-4 pl-3 text-blue-400 font-extrabold text-xl hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-yellow-600 leading-snug lg:p-0">Ticket</a>
@@ -91,14 +91,14 @@ if ($_SESSION['role'] != "user") {
     </div>
     <div class="container flex items-start mx-auto mt-10">
         <div class="mt-10" style="width: 45%">
-            <div class="flex flex-col lg:flex-row w-full text-right">
+            <div class="flex flex-col lg:flex-row w-full text-right gap-4">
                 <div>
                     <h1 class="font-semibold">1. Lorem ipsum dolor sit amet.</h1>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum voluptatem nobis consequuntur modi reprehenderit dolorem.</p>
                 </div>
                 <img src="../../assets/infoimg/img1.png" alt="" />
             </div>
-            <div class="flex flex-col lg:flex-row w-full text-right mt-10">
+            <div class="flex flex-col lg:flex-row w-full text-right mt-10 gap-4">
                 <div>
                     <h1 class="font-semibold">3. Lorem ipsum dolor sit amet.</h1>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum voluptatem nobis consequuntur modi reprehenderit dolorem.</p>
@@ -110,14 +110,14 @@ if ($_SESSION['role'] != "user") {
             <img class="hidden lg:block" src="../../assets/line1.png" alt="" />
         </div>
         <div class="mt-10" style="width: 45%">
-            <div class="flex flex-col lg:flex-row w-full text-left">
+            <div class="flex flex-col lg:flex-row w-full text-left gap-4">
                 <img src="../../assets/infoimg/img4.png" alt="" />
                 <div>
                     <h1 class="font-semibold">2. Lorem ipsum dolor sit amet.</h1>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum voluptatem nobis consequuntur modi reprehenderit dolorem.</p>
                 </div>
             </div>
-            <div class="flex flex-col lg:flex-row w-full text-left mt-10">
+            <div class="flex flex-col lg:flex-row w-full text-left mt-10 gap-4">
                 <img src="../../assets/infoimg/img2.png" alt="" />
                 <div>
                     <h1 class="font-semibold">4. Lorem ipsum dolor sit amet.</h1>
@@ -153,10 +153,10 @@ if ($_SESSION['role'] != "user") {
             </div>
             <div class="relative">
                 <button class="hover:scale-110 transition duration-300">
-                    <a href="tour.html">
+                    <a href="../user/destinations/index.php">
                         <img src="../../assets/menu/tour.png" alt="konten3" />
-                        <div class="absolute top-0 left-0 right-32 bottom-20 flex items-end justify-center">
-                            <p class="text-white text-4xl font-bold p-4">Tour</p>
+                        <div class="absolute top-0 left-0 right-0 bottom-20 flex items-end justify-center">
+                            <p class="text-white text-4xl font-bold p-4">Destination</p>
                         </div>
                         <div class="absolute top-0 left-0 right-20 bottom-10 flex items-end justify-center">
                             <p class="text-white text-xl font-semibold p-4">SEE MORE ></p>
@@ -166,13 +166,15 @@ if ($_SESSION['role'] != "user") {
             </div>
             <div class="relative">
                 <button class="hover:scale-110 transition duration-300">
+                    <a href="../article/index.php">
                     <img src="../../assets/menu/kereta.png" alt="konten3" />
-                    <div class="absolute top-0 left-0 right-32 bottom-20 flex items-end justify-center">
-                        <p class="text-white text-4xl font-bold p-4">Train</p>
+                    <div class="absolute top-0 left-0 right-20   bottom-20 flex items-end justify-center">
+                        <p class="text-white text-4xl font-bold p-4">Article</p>
                     </div>
                     <div class="absolute top-0 left-0 right-20 bottom-10 flex items-end justify-center">
                         <p class="text-white text-xl font-semibold p-4">SEE MORE ></p>
                     </div>
+                    </a>
                 </button>
             </div>
         </div>
